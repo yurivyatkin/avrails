@@ -1,0 +1,6 @@
+---
+- name: Install Rails as superuser
+  shell: gem install rails -v {{rails_version}}
+# The above did not work, even though it was reported as OK
+# It had to be sudo...
+# ... but even then it does not work: fails to runf `rails -v`

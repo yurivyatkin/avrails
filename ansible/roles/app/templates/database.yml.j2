@@ -1,0 +1,23 @@
+default: &default
+  adapter: postgresql
+  encoding: utf8
+  port: 5432
+  min_messages: error
+  pool: 20
+  timeout: 10000
+
+test:
+  <<: *default
+  database: myapp_test
+
+development:
+  <<: *default
+  database: myapp_development
+  host: localhost
+  user: myapp
+  password: myapp
+
+production:
+  <<: *default
+  database: myapp_production
+  timeout: 10000

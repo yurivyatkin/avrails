@@ -1,0 +1,12 @@
+---
+- hosts: all
+  user: root
+  vars_files:
+    - vars/defaults.yml
+
+  roles:
+    - base
+    - nodejs
+    - ruby
+    - rails
+    - app

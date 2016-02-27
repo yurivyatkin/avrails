@@ -1,0 +1,13 @@
+---
+# Application-specific tasks to run AFTER the main provision
+
+- name: Install imagemagick
+  apt: pkg={{ item }} state=installed
+  with_items:
+    - qt5-default
+    - libqt5webkit5-dev
+    - imagemagick
+
+- name: Install redis
+  apt: pkg=redis-server state=installed
+# TODO : run redis-server &

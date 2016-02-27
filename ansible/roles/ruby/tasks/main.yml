@@ -1,0 +1,57 @@
+---
+# based on https://github.com/toast38coza/toast38coza.railserver
+# see also https://gorails.com/setup/ubuntu/14.04
+
+##
+# Get rid of previous versions of Ruby 
+##
+
+- name: Remove existing Ruby
+  apt: name=ruby state=absent
+
+##
+# Ruby
+##
+
+- name: Update apt cache
+  apt: update_cache=yes cache_valid_time=3600
+
+##
+# RVM
+##
+
+- name: Install rvm requirements
+  apt: pkg={{ item }} state=installed
+  with_items:
+    - libgdbm-dev
+    - libncurses5-dev
+    - automake
+    - libtool
+    - bison
+    - libffi-dev
+
+
+- name: Get rvm PGP keys
+  shell: command curl -sSL https://rvm.io/mpapis.asc | gpg --import -
+
+- name: Get rvm
+  shell: "\\curl -L https://get.rvm.io | bash -s stable"
+
+- name: Add rvm to bashrc
+  command: 'echo "source ~/.rvm/scripts/rvm" >> ~/.bashrc creates=~/.bashrc'
+
+- name: Install selected version of Ruby
+  shell: /usr/local/rvm/bin/rvm install {{ruby_version}}
+
+- name: Set default Ruby version
+  shell: /usr/local/rvm/bin/rvm use {{ruby_version}} --default
+
+- name: Don't install documentation with gems
+  command: 'echo "gem: --no-ri --no-rdoc" > ~/.gemrc creates=~/.gemrc'
+
+##
+# Gems
+##
+
+- name: Install Bundler
+  command: bash -lc "gem install bundler"

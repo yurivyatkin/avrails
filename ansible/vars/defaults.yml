@@ -1,0 +1,4 @@
+## webapp
+app_name: myapp
+ruby_version: 2.1.5
+rails_version: 4.1.8

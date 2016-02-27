@@ -1,0 +1,9 @@
+---
+- name: Add repo for nodejs
+  apt_repository: repo='ppa:chris-lea/node.js'
+
+- name: Install required packages
+  apt: pkg={{ item }} state=installed
+  with_items:
+    - build-essential
+    - nodejs
